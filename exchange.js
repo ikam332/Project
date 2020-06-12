@@ -193,6 +193,84 @@ function displayExchange(programs) {
  }
 }
 
+function searchVolunteer() {
+  let query = $("#searchText").val();
+  query = query.toLowerCase().trim();
+
+  let matches = [];
+
+  for (let program of VOLUNTEERS){
+      let programTitle = program.title.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  for (let program of VOLUNTEERS){
+      let programTitle = program.subtitle.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  displayVolunteer(matches);
+}
+
+function searchShortterm() {
+  let query = $("#searchText").val();
+  query = query.toLowerCase().trim();
+
+  let matches = [];
+
+  for (let program of SHORTTERMS){
+      let programTitle = program.title.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  for (let program of SHORTTERMS){
+      let programTitle = program.subtitle.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  displayShortterm(matches);
+}
+
+function searchExchange() {
+  let query = $("#searchText").val();
+  query = query.toLowerCase().trim();
+
+  let matches = [];
+
+  for (let program of EXCHANGES){
+      let programTitle = program.title.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  for (let program of EXCHANGES){
+      let programTitle = program.subtitle.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  displayExchange(matches);
+}
+
+function search() {
+ let query = $("#searchText").val();
+ query = query.toLowerCase().trim();
+
+ if (query == "") {
+   displayVolunteer([VOLUNTEERS[0]]);
+   displayShortterm([SHORTTERMS[0]]);
+   displayExchange([EXCHANGES[0]]);
+ } else {
+   searchVolunteer(VOLUNTEERS);
+   searchShortterm(SHORTTERMS);
+   searchExchange(EXCHANGES);
+  }
+}
+
 $(document).ready(function(){
 
  displayVolunteer([VOLUNTEERS[0]]);
