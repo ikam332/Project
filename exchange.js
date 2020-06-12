@@ -206,9 +206,11 @@ function searchVolunteer() {
     }
   }
   for (let program of VOLUNTEERS){
-      let programTitle = program.subtitle.toLowerCase();
-      if(programTitle.includes(query)){
-        matches.push(program);
+      let programSubitle = program.subtitle.toLowerCase();
+      if(programSubitle.includes(query)){
+        if (!matches.includes(program)){
+          matches.push(program);
+        }
     }
   }
   displayVolunteer(matches);
@@ -227,9 +229,11 @@ function searchShortterm() {
     }
   }
   for (let program of SHORTTERMS){
-      let programTitle = program.subtitle.toLowerCase();
-      if(programTitle.includes(query)){
+    let programSubitle = program.subtitle.toLowerCase();
+    if(programSubitle.includes(query)){
+      if (!matches.includes(program)){
         matches.push(program);
+      }
     }
   }
   displayShortterm(matches);
@@ -248,9 +252,11 @@ function searchExchange() {
     }
   }
   for (let program of EXCHANGES){
-      let programTitle = program.subtitle.toLowerCase();
-      if(programTitle.includes(query)){
+    let programSubitle = program.subtitle.toLowerCase();
+    if(programSubitle.includes(query)){
+      if (!matches.includes(program)){
         matches.push(program);
+      }
     }
   }
   displayExchange(matches);
