@@ -96,3 +96,192 @@ const EXCHANGES = [
     image_title: "Monash Exchange Program"
   }
 ];
+
+function createProgramHTML(program) {
+  let programHTML = $("<article>");
+
+  let imageContainer = $("<figure>");
+  let imageItem = $("<img>",  {src: program.image, alt: program.image_title});
+
+  imageContainer.append(imageItem);;
+	programHTML.append(imageContainer);
+
+  let link = $("<a>",  {href: program.link, target:"_New"});
+  let linkButton = $("<button>")
+    .text("Visit Website")
+    .addClass("visit");
+  link.append(linkButton);
+  programHTML.append(link);
+
+  let title = $("<h2>" + program.title + "</h2>");
+	programHTML.append(title);
+
+  let subtitle = $("<h3>" + program.subtitle + "</h3>");
+	programHTML.append(subtitle);
+
+  let description = $("<p>" + program.description + "</p>");
+	programHTML.append(description);
+
+  if (typeof(program.details) == "string"){
+    var details = $("<p>")
+      .text(program.details)
+      .attr("id", "details" + program.id)
+      .addClass("hidden");
+  } else {
+    var details = $("<ul>")
+      .attr("id", "details" + program.id)
+      .addClass("hidden");
+    for (let item of program.details) {
+      let listItem = $("<li>" + item + "</li>");
+      details.append(listItem);
+    }
+  }
+
+  programHTML.append(details);
+
+  let button = $("<button>")
+    .text("Show More")
+    .attr("id", program.id)
+    .addClass("showMore");
+  programHTML.append(button);
+
+  button.on("click", displayHidden);
+
+  return programHTML;
+}
+
+function displayHidden() {
+	let selfHTML = $(this);
+  let detailsItemID = "details" + selfHTML.attr('id');
+
+  if (selfHTML.text() == "Show Less") {
+    selfHTML.text("Show More");
+  } else selfHTML.text("Show Less");
+
+  $('#' + detailsItemID).toggle(200);
+}
+
+
+function displayVolunteer(programs) {
+ let volunteerList = $("#volunteerList");
+
+ volunteerList.empty();
+
+ for(let program of programs) {
+   let volunteerHTML = createProgramHTML(program);
+   volunteerList.append(volunteerHTML);
+ }
+}
+
+function displayShortterm(programs) {
+ let shorttermList = $("#shorttermList");
+
+ shorttermList.empty();
+ for(let program of programs) {
+   let shorttermHTML = createProgramHTML(program);
+   shorttermList.append(shorttermHTML);
+ }
+}
+
+function displayExchange(programs) {
+ let exchangeList = $("#exchangeList");
+
+ exchangeList.empty();
+ for(let program of programs) {
+   let exchangeHTML = createProgramHTML(program);
+   exchangeList.append(exchangeHTML);
+ }
+}
+
+function searchVolunteer() {
+  let query = $("#searchText").val();
+  query = query.toLowerCase().trim();
+
+  let matches = [];
+
+  for (let program of VOLUNTEERS){
+      let programTitle = program.title.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  for (let program of VOLUNTEERS){
+      let programSubitle = program.subtitle.toLowerCase();
+      if(programSubitle.includes(query)){
+        if (!matches.includes(program)){
+          matches.push(program);
+        }
+    }
+  }
+  displayVolunteer(matches);
+}
+
+function searchShortterm() {
+  let query = $("#searchText").val();
+  query = query.toLowerCase().trim();
+
+  let matches = [];
+
+  for (let program of SHORTTERMS){
+      let programTitle = program.title.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  for (let program of SHORTTERMS){
+    let programSubitle = program.subtitle.toLowerCase();
+    if(programSubitle.includes(query)){
+      if (!matches.includes(program)){
+        matches.push(program);
+      }
+    }
+  }
+  displayShortterm(matches);
+}
+
+function searchExchange() {
+  let query = $("#searchText").val();
+  query = query.toLowerCase().trim();
+
+  let matches = [];
+
+  for (let program of EXCHANGES){
+      let programTitle = program.title.toLowerCase();
+      if(programTitle.includes(query)){
+        matches.push(program);
+    }
+  }
+  for (let program of EXCHANGES){
+    let programSubitle = program.subtitle.toLowerCase();
+    if(programSubitle.includes(query)){
+      if (!matches.includes(program)){
+        matches.push(program);
+      }
+    }
+  }
+  displayExchange(matches);
+}
+
+function search() {
+ let query = $("#searchText").val();
+ query = query.toLowerCase().trim();
+
+ if (query == "") {
+   displayVolunteer([VOLUNTEERS[0]]);
+   displayShortterm([SHORTTERMS[0]]);
+   displayExchange([EXCHANGES[0]]);
+ } else {
+   searchVolunteer(VOLUNTEERS);
+   searchShortterm(SHORTTERMS);
+   searchExchange(EXCHANGES);
+  }
+}
+
+$(document).ready(function(){
+
+ displayVolunteer([VOLUNTEERS[0]]);
+ displayShortterm([SHORTTERMS[0]]);
+ displayExchange([EXCHANGES[0]]);
+
+ $("#searchText").on("keyup", search)
+});
