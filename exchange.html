@@ -2,10 +2,10 @@
 <html>
   <head>
     <title> Think Global Exchange Programs </title>
-    <link rel="stylesheet" type="text/css" href= "css/style.css">
+    <link rel="stylesheet" type="text/css" href= "style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/exchange-program.js"></script>
+    <script src="exchange.js"></script>
   </head>
 
   <body>
@@ -16,6 +16,9 @@
         </div>
 
         <section class="search">
+          <p>
+            <input placeholder="Search..." type="text" id="searchText">
+          </p>
         </section>
 
         <nav class="topnav">
@@ -29,7 +32,7 @@
       </header>
 
       <section class="intro">
-        <h1>About Us</h1>
+        <h1 id="about">About Us</h1>
         <p>
           The core values of us are respect, acceptance, and appreciation of the cultural diversity that exists in the world.
           We envision a world where everyone is free to have their own convictions and accepts that others have the right to live in peace,
@@ -42,9 +45,12 @@
       </section>
 
       <div>
-        <h1>Volunteer Abroad</h1>
+        <h1 id="volunteer">Volunteer Abroad</h1>
         <section class="program" id="volunteerList"></section>
         <div class="pagination">
+          <button type="submit" onclick="displayVolunteer([VOLUNTEERS[0]])">1</button>
+          <button type="submit" onclick="displayVolunteer([VOLUNTEERS[1]])">2</button>
+          <button type="submit" onclick="displayVolunteer([VOLUNTEERS[2]])">3</button>
         </div>
       </div>
 
@@ -53,6 +59,9 @@
         <h1 id="shortterm">Short Term Camp Abroad</h1>
         <section class="program" id="shorttermList"></section>
         <div class="pagination">
+          <button type="submit" onclick="displayShortterm([SHORTTERMS[0]])">1</button>
+          <button type="submit" onclick="displayShortterm([SHORTTERMS[1]])">2</button>
+          <button type="submit" onclick="displayShortterm([SHORTTERMS[2]])">3</button>
         </div>
       </div>
 
@@ -61,11 +70,14 @@
         <h1 id="exchange">Short Term Camp Abroad</h1>
         <section class="program" id="exchangeList"></section>
         <div class="pagination">
+          <button type="submit" onclick="displayExchange([EXCHANGES[0]])">1</button>
+          <button type="submit" onclick="displayExchange([EXCHANGES[1]])">2</button>
+          <button type="submit" onclick="displayExchange([EXCHANGES[2]])">3</button>
         </div>
       </div>
 
       <section class="contact">
-        <h1>Contact Us</h1>
+        <h1 id="contact">Contact Us</h1>
         <h3>Address</h3>
         <p>CAN Mezzanine</p>
         <p>32-36 Loman Street</p>
